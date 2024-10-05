@@ -8,9 +8,17 @@ RUN apk add --no-cache \
 COPY *.json yarn.lock ./
 RUN yarn install
 
-COPY /src /app/src
-COPY /public /app/public
+COPY /src ./src
+COPY /public ./public
+
+# Building
+ENV NODE_OPTIONS=--openssl-legacy-provider
+RUN yarn build
+
+RUN yarn global add serve
+
+COPY package.json ./package.json
 
 EXPOSE 3000
 
-CMD ["yarn", "start"]
+CMD ["serve", "-d", "build", "-l", "3000"]
