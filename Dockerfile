@@ -17,8 +17,6 @@ RUN yarn build
 
 RUN yarn global add serve
 
-COPY package.json ./package.json
-
 EXPOSE 3000
 
 CMD ["serve", "-d", "build", "-l", "3000"]
